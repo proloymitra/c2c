@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curry2Cakes - From Curries to Cakes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo.png" alt="Curry2Cakes Logo" class="logo-img">
+            </div>
+            <div class="nav-menu">
+                <a href="#menu" class="nav-link">Menu</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <img src="logo.png" alt="Curry2Cakes Logo" class="hero-logo-img">
+                </div>
+                <div class="hero-badge">Freshly Made with Love</div>
+                <h1 class="hero-title">
+                    From Curries to <span class="gradient-text">Cakes</span>
+                </h1>
+                <p class="hero-description">
+                    Authentic homemade curries and decadent cakes, delivered fresh to your door. 
+                    Experience the perfect blend of tradition and sweetness.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">View Menu</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3>Made with Love</h3>
+                    <p>Every dish is prepared with care and the finest ingredients</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/>
+                        </svg>
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>Fresh, hot food delivered right to your doorstep</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>Fresh ingredients and authentic recipes every time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Menu</h2>
+                <p>Discover our delicious range of curries and cakes</p>
+            </div>
+            
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All Items</button>
+                <button class="category-btn" data-category="curries">Curries</button>
+                <button class="category-btn" data-category="cakes">Cakes</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>Our Story</h2>
+                    <p>
+                        Welcome to Curry2Cakes, where passion meets flavor! What started as a home kitchen 
+                        experiment has grown into a beloved cloud kitchen serving our community.
+                    </p>
+                    <p>
+                        We believe that food should be made with love, using only the freshest ingredients 
+                        and time-honored recipes. Whether you're craving the rich spices of authentic curries 
+                        or the sweet comfort of homemade cakes, we've got something special for you.
+                    </p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Menu Items</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">5★</div>
+                            <div class="stat-label">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="quote-card">
+                        <div class="quote-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <p class="quote">
+                            "Cooking is not just about ingredients, recipes, and cooking. 
+                            It's about harnessing imagination, empowerment, and creativity."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>Ready to order? Have questions? We'd love to hear from you!</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                            <span>(555) 123-4567</span>
+                        </div>
+                        <div class="info-item">
+                            <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                            <span>hello@curry2cakes.com</span>
+                        </div>
+                        <div class="info-item">
+                            <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Delivery available in your area</span>
+                        </div>
+                        <div class="info-item">
+                            <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Tue-Sun: 11AM - 9PM</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <h4>Follow Us</h4>
+                        <div class="social-buttons">
+                            <button class="social-btn">Facebook</button>
+                            <button class="social-btn">Instagram</button>
+                            <button class="social-btn">Twitter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qr-section">
+                    <div class="qr-container">
+                        <div class="qr-placeholder">
+                            <div class="qr-code">
+                                <!-- QR Code Placeholder -->
+                                <div class="qr-pattern">
+                                    <div class="qr-corner top-left"></div>
+                                    <div class="qr-corner top-right"></div>
+                                    <div class="qr-corner bottom-left"></div>
+                                    <div class="qr-dots"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="qr-text">Scan to connect with us</p>
+                        <p class="qr-description">Scan this QR code to view our full menu, place orders, and get updates on special offers!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="Curry2Cakes Logo" class="footer-logo-img">
+                    </div>
+                    <p>From curries to cakes, we bring happiness to your table.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Indian Curries</a></li>
+                        <li><a href="#">Desserts & Cakes</a></li>
+                        <li><a href="#">Special Combos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Business Hours</h4>
+                    <ul>
+                        <li>Tuesday - Sunday: 11AM - 9PM</li>
+                        <li>Monday: Closed</li>
+                        <li>Delivery: 12PM - 8:30PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Curry2Cakes. All rights reserved. Made with ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
