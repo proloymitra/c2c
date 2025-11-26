@@ -6,14 +6,16 @@ const menuItems = {
             description: "Chicken leg cooked in fresh cream and kasuri methi",
             price: "₹250",
             badge: "2 pcs",
-            popular: true
+            popular: true,
+            image: "methi-malai-murg.jpg"
         },
         {
             name: "Mutton Achari",
             description: "Tender mutton in tangy pickle spices",
             price: "₹400",
             badge: "4 pcs",
-            popular: true
+            popular: true,
+            image: "mutton-achari.jpg"
         }
     ],
     cakes: [
@@ -22,27 +24,32 @@ const menuItems = {
             description: "Small: ₹1000 | Medium: ₹1300 | Large: ₹1500 | Per Slice: ₹190",
             price: "₹190+",
             badge: "Bestseller",
-            popular: true
+            popular: true,
+            image: "blueberry-cheesecake.jpg"
         },
         {
             name: "New York Cheesecake",
             description: "Small: ₹800 | Medium: ₹1200 | Large: ₹1300 | Per Slice: ₹175",
             price: "₹175+",
-            popular: true
+            popular: true,
+            image: "newyork-cheesecake.jpg"
         },
         {
             name: "Tea Time Carrot Cake",
             description: "Perfect companion for your afternoon tea",
             price: "₹300",
             badge: "Seasonal",
-            popular: false
+            popular: false,
+            seasonal: true,
+            image: "carrot-cake.jpg"
         },
         {
             name: "Chocochips Cookies",
             description: "Box of 8 delicious chocolate chip cookies",
             price: "₹250",
             badge: "8 pieces",
-            popular: true
+            popular: true,
+            image: "chocochip-cookies.jpg"
         }
     ]
 };
@@ -73,6 +80,11 @@ function renderMenuItems(category) {
 
     menuGrid.innerHTML = items.map((item, index) => `
         <div class="menu-item" data-category="${category === 'all' ? (menuItems.curries.includes(item) ? 'curries' : 'cakes') : category}">
+            ${item.image ? `
+                <div class="menu-item-image">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy">
+                </div>
+            ` : ''}
             <div class="menu-item-header">
                 <h3>${item.name}</h3>
                 ${item.badge ? `<span class="menu-badge">${item.badge}</span>` : ''}
@@ -87,6 +99,11 @@ function renderMenuItems(category) {
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                     </svg>
                     <span>Popular Choice</span>
+                </div>
+            ` : ''}
+            ${item.seasonal ? `
+                <div class="menu-item-meta seasonal">
+                    <span>🌸 Seasonal</span>
                 </div>
             ` : ''}
             ${item.vegetarian ? `
