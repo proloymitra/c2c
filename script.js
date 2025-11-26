@@ -19,15 +19,15 @@ const menuItems = {
     cakes: [
         {
             name: "New York Blueberry Cheesecake",
-            description: "Small: ₹1000 | Medium: ₹1300 | Large: ₹1500 | Per Slice: ₹175",
-            price: "₹175+",
+            description: "Small: ₹1000 | Medium: ₹1300 | Large: ₹1500 | Per Slice: ₹190",
+            price: "₹190+",
             badge: "Bestseller",
             popular: true
         },
         {
             name: "New York Cheesecake",
-            description: "Small: ₹800 | Medium: ₹1200 | Large: ₹1300 | Per Slice: ₹190",
-            price: "₹190+",
+            description: "Small: ₹800 | Medium: ₹1200 | Large: ₹1300 | Per Slice: ₹175",
+            price: "₹175+",
             popular: true
         },
         {
