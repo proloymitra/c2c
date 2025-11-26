@@ -2,56 +2,46 @@
 const menuItems = {
     curries: [
         {
-            name: "Butter Chicken",
-            description: "Tender chicken in rich, creamy tomato sauce",
-            price: "$14.99",
-            badge: "Bestseller",
+            name: "Methi Malai Murg",
+            description: "Chicken leg cooked in fresh cream and kasuri methi",
+            price: "₹250",
+            badge: "2 pcs",
             popular: true
         },
         {
-            name: "Lamb Rogan Josh",
-            description: "Slow-cooked lamb in aromatic Kashmiri spices",
-            price: "$16.99",
+            name: "Mutton Achari",
+            description: "Tender mutton in tangy pickle spices",
+            price: "₹400",
+            badge: "4 pcs",
             popular: true
-        },
-        {
-            name: "Palak Paneer",
-            description: "Cottage cheese in fresh spinach gravy",
-            price: "$12.99",
-            vegetarian: true
-        },
-        {
-            name: "Chana Masala",
-            description: "Spiced chickpeas in tangy tomato sauce",
-            price: "$11.99",
-            vegetarian: true
         }
     ],
     cakes: [
         {
-            name: "Chocolate Fudge Cake",
-            description: "Decadent three-layer chocolate cake",
-            price: "$24.99",
-            badge: "Popular",
+            name: "New York Blueberry Cheesecake",
+            description: "Small: ₹1000 | Medium: ₹1300 | Large: ₹1500 | Per Slice: ₹175",
+            price: "₹175+",
+            badge: "Bestseller",
             popular: true
         },
         {
-            name: "Vanilla Bean Cake",
-            description: "Light and fluffy with real vanilla beans",
-            price: "$22.99",
+            name: "New York Cheesecake",
+            description: "Small: ₹800 | Medium: ₹1200 | Large: ₹1300 | Per Slice: ₹190",
+            price: "₹190+",
             popular: true
         },
         {
-            name: "Red Velvet Cake",
-            description: "Classic southern favorite with cream cheese frosting",
-            price: "$26.99",
-            badge: "Special",
-            popular: true
+            name: "Tea Time Carrot Cake",
+            description: "Perfect companion for your afternoon tea",
+            price: "₹300",
+            badge: "Seasonal",
+            popular: false
         },
         {
-            name: "Carrot Cake",
-            description: "Moist carrot cake with walnuts and spices",
-            price: "$23.99",
+            name: "Chocochips Cookies",
+            description: "Box of 8 delicious chocolate chip cookies",
+            price: "₹250",
+            badge: "8 pieces",
             popular: true
         }
     ]
