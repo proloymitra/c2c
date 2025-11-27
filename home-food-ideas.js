@@ -1,12 +1,102 @@
-// Home Food Ideas - Supabase Integration
+// Home Food Ideas - Supabase Integration with Admin Moderation
 // Anonymous community sharing with real-time sync across all users
 
 // Supabase Configuration
 const SUPABASE_URL = 'https://wievonidztojjwatikoj.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZXZvbmlkenRvamp3YXRpa29qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyMzI5ODIsImV4cCI6MjA3OTgwODk4Mn0.yUzU34UqMDqq3eUPEzsMHloPz2zN52RTGE0Ag7npm5E';
 
+// Admin Configuration (password hash for security)
+const ADMIN_PASSWORD_HASH = 'c2c_admin_2025@c2c#0'; // In production, use proper hashing
+
 // Initialize Supabase client
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Admin state
+let isAdmin = false;
+
+// Check if admin is logged in (from sessionStorage)
+function checkAdminStatus() {
+    const adminSession = sessionStorage.getItem('c2c_admin_session');
+    if (adminSession === ADMIN_PASSWORD_HASH) {
+        isAdmin = true;
+        updateAdminUI();
+    }
+}
+
+// Admin login
+function adminLogin() {
+    const password = prompt('Enter admin password:');
+    if (!password) return;
+    
+    // Simple password check (in production, use proper hashing)
+    if (password === '2025@c2c#0') {
+        isAdmin = true;
+        sessionStorage.setItem('c2c_admin_session', ADMIN_PASSWORD_HASH);
+        updateAdminUI();
+        showSuccessMessage('breakfast', 'Admin mode activated! Delete buttons now visible.');
+        loadIdeas(); // Reload to show delete buttons
+    } else {
+        alert('Incorrect password!');
+    }
+}
+
+// Admin logout
+function adminLogout() {
+    isAdmin = false;
+    sessionStorage.removeItem('c2c_admin_session');
+    updateAdminUI();
+    loadIdeas(); // Reload to hide delete buttons
+    alert('Logged out from admin mode');
+}
+
+// Update admin UI elements
+function updateAdminUI() {
+    const adminLink = document.getElementById('admin-link');
+    const logoutLink = document.getElementById('logout-link');
+    
+    if (isAdmin) {
+        if (adminLink) adminLink.style.display = 'none';
+        if (logoutLink) logoutLink.style.display = 'inline';
+    } else {
+        if (adminLink) adminLink.style.display = 'inline';
+        if (logoutLink) logoutLink.style.display = 'none';
+    }
+}
+
+// Delete a comment (admin only)
+async function deleteIdea(ideaId, mealType) {
+    if (!isAdmin) {
+        alert('Admin access required');
+        return;
+    }
+    
+    if (!confirm('Are you sure you want to delete this comment?')) {
+        return;
+    }
+    
+    try {
+        const { error } = await supabase
+            .from('home_food_ideas')
+            .delete()
+            .eq('id', ideaId);
+        
+        if (error) {
+            console.error('Error deleting idea:', error);
+            alert('Failed to delete comment. Please try again.');
+            return;
+        }
+        
+        // Reload ideas to reflect deletion
+        await loadIdeas();
+        
+        // Track event
+        trackEvent('delete_idea', 'Admin', mealType);
+        
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to delete comment. Please check your internet connection.');
+    }
+}
 
 // Load ideas from Supabase
 async function loadIdeas() {
@@ -95,7 +185,7 @@ async function submitIdea(mealType) {
         input.value = '';
         
         // Show success message
-        showSuccessMessage(mealType);
+        showSuccessMessage(mealType, '✓ Your idea has been shared with the community! Thank you! 🎉');
         
         // Reload ideas to show the new one
         await loadIdeas();
@@ -113,11 +203,11 @@ async function submitIdea(mealType) {
 }
 
 // Show success message
-function showSuccessMessage(mealType) {
+function showSuccessMessage(mealType, messageText) {
     const section = document.getElementById(`${mealType}-ideas`);
     const message = document.createElement('div');
     message.style.cssText = 'background: #4CAF50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: 600; animation: slideIn 0.3s ease;';
-    message.textContent = '✓ Your idea has been shared with the community! Thank you! 🎉';
+    message.textContent = messageText;
     
     section.insertBefore(message, section.firstChild);
     
@@ -149,13 +239,17 @@ function renderIdeas(mealType, ideas) {
         return;
     }
     
-    container.innerHTML = ideas.map(idea => createIdeaCard(idea)).join('');
+    container.innerHTML = ideas.map(idea => createIdeaCard(idea, mealType)).join('');
 }
 
 // Create HTML for an idea card
-function createIdeaCard(idea) {
+function createIdeaCard(idea, mealType) {
     const date = new Date(idea.date);
     const formattedDate = formatDate(date);
+    
+    // Add delete button if admin
+    const deleteButton = isAdmin ? 
+        `<button onclick="deleteIdea(${idea.id}, '${mealType}')" class="delete-btn" title="Delete this comment">🗑️ Delete</button>` : '';
     
     return `
         <div class="idea-card">
@@ -163,6 +257,7 @@ function createIdeaCard(idea) {
             <div class="idea-meta">
                 <span class="idea-author">— ${escapeHtml(idea.author)}</span>
                 <span class="idea-date">${formattedDate}</span>
+                ${deleteButton}
             </div>
         </div>
     `;
@@ -219,11 +314,26 @@ function setupRealtime() {
                 loadIdeas();
             }
         )
+        .on('postgres_changes', 
+            { 
+                event: 'DELETE', 
+                schema: 'public', 
+                table: 'home_food_ideas' 
+            }, 
+            (payload) => {
+                console.log('Idea deleted:', payload);
+                // Reload all ideas to reflect deletion
+                loadIdeas();
+            }
+        )
         .subscribe();
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async function() {
+    // Check admin status
+    checkAdminStatus();
+    
     // Load initial ideas
     await loadIdeas();
     

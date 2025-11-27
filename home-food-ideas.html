@@ -288,8 +288,38 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 Curry2Cakes. Made with ❤️ in our home kitchen.</p>
+            <p style="margin-top: 10px; font-size: 0.85rem; color: #999;">
+                <a href="#" id="admin-link" onclick="adminLogin(); return false;" style="color: #999; text-decoration: none;">Admin</a>
+                <a href="#" id="logout-link" onclick="adminLogout(); return false;" style="color: #999; text-decoration: none; display: none;">Logout</a>
+            </p>
         </div>
     </footer>
+    
+    <style>
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.05);
+        }
+        
+        .idea-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    </style>
 
     <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
