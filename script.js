@@ -7,7 +7,10 @@ const menuItems = {
             price: "₹250",
             badge: "2 pcs",
             popular: true,
-            image: "methi-malai-murg.jpg"
+            image: "methi-malai-murg.jpg",
+            detailedDescription: "Succulent chicken legs slow-cooked in a rich, creamy gravy infused with aromatic kasuri methi (dried fenugreek leaves). This North Indian delicacy combines the subtle bitterness of methi with the smoothness of fresh cream, creating a perfectly balanced dish.",
+            pairings: ["Butter Naan", "Jeera Rice", "Garlic Naan", "Steamed Basmati Rice"],
+            funFact: "Kasuri methi is sun-dried fenugreek leaves from Kasur, Pakistan. Just a pinch transforms any curry into a restaurant-style dish! The leaves are known for their digestive properties and unique aroma."
         },
         {
             name: "Mutton Achari",
@@ -15,7 +18,10 @@ const menuItems = {
             price: "₹400",
             badge: "4 pcs",
             popular: true,
-            image: "mutton-achari.jpg"
+            image: "mutton-achari.jpg",
+            detailedDescription: "Premium mutton pieces marinated and cooked with traditional Indian pickle spices including mustard seeds, fennel, nigella seeds, and fenugreek. The tangy, spicy gravy is a perfect balance of heat and flavor that will transport you to the streets of Old Delhi.",
+            pairings: ["Tandoori Roti", "Plain Paratha", "Pulao", "Roomali Roti"],
+            funFact: "The 'achari' spice blend mimics the flavors of Indian pickles (achar). This cooking technique dates back to Mughal kitchens where royal chefs would preserve the tangy flavors of pickles in their curries!"
         }
     ],
     cakes: [
@@ -25,14 +31,20 @@ const menuItems = {
             price: "₹190+",
             badge: "Bestseller",
             popular: true,
-            image: "blueberry-cheesecake.jpg"
+            image: "blueberry-cheesecake.jpg",
+            detailedDescription: "Our signature New York-style cheesecake features a dense, creamy filling made with premium cream cheese on a buttery graham cracker crust. Topped with a luscious blueberry compote made from fresh blueberries, creating the perfect balance of tangy and sweet.",
+            pairings: ["Hot Coffee", "Chai Latte", "Fresh Berries", "Whipped Cream"],
+            funFact: "New York cheesecake originated in the 1900s and uses cream cheese invented in 1872 in New York! Our version requires 24 hours of chilling for the perfect texture. The blueberries are packed with antioxidants!"
         },
         {
             name: "New York Cheesecake",
             description: "Small: ₹800 | Medium: ₹1200 | Large: ₹1300 | Per Slice: ₹175",
             price: "₹175+",
             popular: true,
-            image: "newyork-cheesecake.jpg"
+            image: "newyork-cheesecake.jpg",
+            detailedDescription: "The classic! Pure, unadulterated New York-style cheesecake with a velvety smooth texture. Made with full-fat cream cheese, fresh eggs, and a hint of vanilla on our signature graham cracker crust. No toppings needed - perfection in its simplest form.",
+            pairings: ["Espresso", "Fresh Strawberries", "Caramel Sauce", "Dark Chocolate Shavings"],
+            funFact: "A true New York cheesecake should be so creamy it almost melts in your mouth! The secret? We bake it in a water bath to prevent cracks and ensure even cooking. Each cake uses nearly 2 pounds of cream cheese!"
         },
         {
             name: "Tea Time Carrot Cake",
@@ -41,7 +53,10 @@ const menuItems = {
             badge: "Seasonal",
             popular: false,
             seasonal: true,
-            image: "carrot-cake.jpg"
+            image: "carrot-cake.jpg",
+            detailedDescription: "Moist and flavorful carrot cake loaded with freshly grated carrots, crushed pineapple, and warm spices like cinnamon and nutmeg. Each slice is perfectly spiced and not overly sweet - ideal for your afternoon tea break.",
+            pairings: ["Masala Chai", "English Breakfast Tea", "Ginger Tea", "Vanilla Ice Cream"],
+            funFact: "Carrot cake became popular during WWII when sugar was rationed and carrots were used as a natural sweetener! Despite having vegetables, one slice can contain up to 2 servings of carrots. Healthy indulgence!"
         },
         {
             name: "Chocochips Cookies",
@@ -49,7 +64,10 @@ const menuItems = {
             price: "₹250",
             badge: "8 pieces",
             popular: true,
-            image: "chocochip-cookies.jpg"
+            image: "chocochip-cookies.jpg",
+            detailedDescription: "Classic chocolate chip cookies with a perfect balance of crispy edges and chewy centers. Loaded with premium dark chocolate chips and a hint of sea salt. Baked fresh to order - the aroma alone is worth it!",
+            pairings: ["Cold Milk", "Hot Chocolate", "Vanilla Ice Cream", "Coffee"],
+            funFact: "The chocolate chip cookie was invented by accident in 1938 when Ruth Wakefield ran out of baker's chocolate and used chopped chocolate bars instead! Our cookies use Belgian chocolate chips for extra richness."
         }
     ]
 };
@@ -326,3 +344,152 @@ function setupLazyLoading() {
     
     images.forEach(img => imageObserver.observe(img));
 }
+
+// Google Analytics Event Tracking
+function trackEvent(eventName, category, label, value = null) {
+    if (typeof gtag !== 'undefined') {
+        const eventParams = {
+            event_category: category,
+            event_label: label
+        };
+        if (value !== null) {
+            eventParams.value = value;
+        }
+        gtag('event', eventName, eventParams);
+        console.log('GA Event:', eventName, eventParams);
+    }
+}
+
+// Show Menu Item Popup
+function showMenuItemPopup(item) {
+    // Track popup view
+    trackEvent('view_item', 'Menu', item.name);
+    
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.className = 'menu-modal';
+    modal.innerHTML = `
+        <div class="menu-modal-overlay"></div>
+        <div class="menu-modal-content">
+            <button class="menu-modal-close">&times;</button>
+            <div class="menu-modal-body">
+                <div class="menu-modal-image">
+                    <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="menu-modal-details">
+                    <h2>${item.name}</h2>
+                    <div class="menu-modal-price">${item.price}</div>
+                    
+                    <div class="menu-modal-section">
+                        <h3>About This Dish</h3>
+                        <p>${item.detailedDescription}</p>
+                    </div>
+                    
+                    ${item.pairings && item.pairings.length > 0 ? `
+                        <div class="menu-modal-section">
+                            <h3>🍽️ Perfect Pairings</h3>
+                            <div class="menu-modal-pairings">
+                                ${item.pairings.map(pairing => `
+                                    <span class="pairing-tag">${pairing}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${item.funFact ? `
+                        <div class="menu-modal-section fun-fact">
+                            <h3>💡 Fun Fact</h3>
+                            <p>${item.funFact}</p>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="menu-modal-actions">
+                        <a href="https://wa.me/919883128474?text=Hi! I'd like to order ${encodeURIComponent(item.name)}" 
+                           class="btn btn-primary btn-order" 
+                           target="_blank"
+                           onclick="trackEvent('click_order', 'Menu', '${item.name}')">
+                            Order on WhatsApp
+                        </a>
+                        <button class="btn btn-secondary" onclick="this.closest('.menu-modal').remove()">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Add event listeners
+    modal.querySelector('.menu-modal-overlay').addEventListener('click', () => {
+        modal.remove();
+        trackEvent('close_popup', 'Menu', item.name);
+    });
+    
+    modal.querySelector('.menu-modal-close').addEventListener('click', () => {
+        modal.remove();
+        trackEvent('close_popup', 'Menu', item.name);
+    });
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Animate in
+    setTimeout(() => modal.classList.add('active'), 10);
+}
+
+// Setup Menu Item Click Handlers
+function setupMenuItemClickHandlers() {
+    document.addEventListener('click', (e) => {
+        const menuItem = e.target.closest('.menu-item');
+        if (menuItem) {
+            const itemName = menuItem.querySelector('h3').textContent;
+            const allItems = [...menuItems.curries, ...menuItems.cakes];
+            const item = allItems.find(i => i.name === itemName);
+            
+            if (item && item.detailedDescription) {
+                showMenuItemPopup(item);
+            }
+        }
+    });
+}
+
+// Track Navigation Clicks
+function setupNavigationTracking() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            trackEvent('click_navigation', 'Navigation', e.target.textContent);
+        });
+    });
+    
+    // Track category filter clicks
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            trackEvent('filter_menu', 'Menu', e.target.dataset.category);
+        });
+    });
+    
+    // Track CTA button clicks
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('btn-order')) {
+                trackEvent('click_cta', 'CTA', e.target.textContent.trim());
+            }
+        });
+    });
+}
+
+// Initialize new features
+document.addEventListener('DOMContentLoaded', function() {
+    setupMenuItemClickHandlers();
+    setupNavigationTracking();
+    
+    // Track page view
+    trackEvent('page_view', 'Engagement', window.location.pathname);
+});

@@ -1068,3 +1068,237 @@ input.error, textarea.error {
         align-self: flex-start;
     }
 }
+
+
+/* Menu Item Modal Popup */
+.menu-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-modal.active {
+    opacity: 1;
+}
+
+.menu-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.menu-modal-content {
+    position: relative;
+    max-width: 900px;
+    max-height: 90vh;
+    margin: 5vh auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.menu-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-modal-close:hover {
+    background: #f97316;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.menu-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.menu-modal-image {
+    position: sticky;
+    top: 0;
+    height: fit-content;
+}
+
+.menu-modal-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.menu-modal-details {
+    padding: 40px;
+    background: white;
+}
+
+.menu-modal-details h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.menu-modal-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f97316;
+    margin-bottom: 30px;
+}
+
+.menu-modal-section {
+    margin-bottom: 30px;
+}
+
+.menu-modal-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-modal-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.menu-modal-pairings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pairing-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #92400e;
+}
+
+.fun-fact {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+}
+
+.fun-fact h3 {
+    color: #1e40af;
+}
+
+.fun-fact p {
+    color: #1e3a8a;
+    margin: 0;
+}
+
+.menu-modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-order {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .menu-modal-content {
+        margin: 0;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .menu-modal-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .menu-modal-image {
+        position: relative;
+    }
+    
+    .menu-modal-image img {
+        height: 300px;
+    }
+    
+    .menu-modal-details {
+        padding: 30px 20px;
+    }
+    
+    .menu-modal-details h2 {
+        font-size: 24px;
+    }
+    
+    .menu-modal-price {
+        font-size: 22px;
+    }
+    
+    .menu-modal-actions {
+        flex-direction: column;
+    }
+}
+
+/* Add cursor pointer to menu items */
+.menu-item {
+    cursor: pointer;
+}
+
+.menu-item:active {
+    transform: translateY(-2px);
+}
