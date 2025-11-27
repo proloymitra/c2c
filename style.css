@@ -1259,14 +1259,33 @@ input.error, textarea.error {
 
 /* Responsive Modal */
 @media (max-width: 768px) {
+    .menu-modal {
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile */
+    }
+    
+    .menu-modal-overlay {
+        height: 100vh;
+        height: 100dvh;
+    }
+    
     .menu-modal-content {
         margin: 0;
         max-height: 100vh;
+        max-height: 100dvh;
+        height: 100vh;
+        height: 100dvh;
         border-radius: 0;
+        display: flex;
+        flex-direction: column;
     }
     
     .menu-modal-body {
         grid-template-columns: 1fr;
+        max-height: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
     
     .menu-modal-image {
@@ -1279,6 +1298,9 @@ input.error, textarea.error {
     
     .menu-modal-details {
         padding: 30px 20px;
+        flex: 1;
+        overflow-y: auto;
+        background: white;
     }
     
     .menu-modal-details h2 {
