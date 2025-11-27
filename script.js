@@ -99,9 +99,19 @@ const menuGrid = document.getElementById('menuGrid');
 const categoryButtons = document.querySelectorAll('.category-btn');
 const hamburger = document.querySelector('.hamburger');
 
+// Update menu item count dynamically
+function updateMenuItemCount() {
+    const totalItems = menuItems.curries.length + menuItems.cakes.length;
+    const countElement = document.getElementById('menuItemCount');
+    if (countElement) {
+        countElement.textContent = totalItems;
+    }
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     renderMenuItems('all');
+    updateMenuItemCount();
     setupEventListeners();
     setupMobileMenu();
     setupSmoothScrolling();
