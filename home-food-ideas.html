@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH6N2HGMCW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EH6N2HGMCW');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Food Ideas - Curry2Cakes</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        .ideas-hero {
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        
+        .ideas-hero h1 {
+            font-size: 2.5rem;
+            color: #2D1810;
+            margin-bottom: 20px;
+        }
+        
+        .back-home-btn {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: #D2691E;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-home-btn:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+        
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            line-height: 1.8;
+            color: #4A4A4A;
+            font-size: 1.1rem;
+        }
+        
+        .intro-text p {
+            margin-bottom: 15px;
+        }
+        
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .ideas-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .meal-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .meal-section h2 {
+            color: #D2691E;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meal-icon {
+            font-size: 2rem;
+        }
+        
+        .comment-form {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #FFF5E1;
+            border-radius: 8px;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #FFE4B5;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #D2691E;
+        }
+        
+        .submit-btn {
+            background: #D2691E;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+        
+        .ideas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .idea-card {
+            background: #FAFAFA;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #D2691E;
+            transition: all 0.3s ease;
+        }
+        
+        .idea-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .idea-text {
+            color: #4A4A4A;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .idea-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .idea-author {
+            font-style: italic;
+        }
+        
+        .idea-date {
+            color: #999;
+        }
+        
+        .no-ideas {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .ideas-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .intro-text {
+                font-size: 1rem;
+                padding: 20px;
+            }
+            
+            .meal-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo.png" alt="Curry2Cakes Logo" class="logo-img">
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#menu" class="nav-link">Menu</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="ideas-hero">
+        <a href="index.html" class="back-home-btn">← Back to Home</a>
+        <h1>🏠 Home Food Ideas</h1>
+        
+        <div class="intro-text">
+            <p><strong>Every morning, the same question haunts every kitchen:</strong> "What should I cook today?"</p>
+            
+            <p>You open the fridge, stare at the same ingredients, and your mind goes blank. The family expects variety, but inspiration? That's on vacation! You scroll through recipe apps, but nothing feels quite right. Too fancy. Too time-consuming. Too... not what your family actually eats.</p>
+            
+            <p>Sound familiar? You're not alone! Thousands of home cooks face this daily dilemma. That's why we created this space—a community kitchen where you can share your go-to meals, discover what others are cooking, and never run out of ideas again.</p>
+            
+            <p><strong>No judgment. No fancy photography. Just real food ideas from real kitchens.</strong> Share what worked for your breakfast, what saved your lunch, or that dinner that made everyone ask for seconds. Your simple dal-chawal combo might be someone else's lifesaver tomorrow!</p>
+        </div>
+    </section>
+
+    <!-- Ideas Container -->
+    <div class="ideas-container">
+        <!-- Breakfast Section -->
+        <div class="meal-section">
+            <h2><span class="meal-icon">🌅</span> Breakfast Ideas</h2>
+            
+            <div class="comment-form">
+                <textarea 
+                    id="breakfast-input" 
+                    placeholder="Share your breakfast idea... (e.g., 'Poha with peanuts and curry leaves - quick, filling, and the kids love it!')"></textarea>
+                <button class="submit-btn" onclick="submitIdea('breakfast')">Share Idea</button>
+            </div>
+            
+            <div class="ideas-list" id="breakfast-ideas">
+                <div class="no-ideas">Be the first to share a breakfast idea! 🌟</div>
+            </div>
+        </div>
+
+        <!-- Lunch Section -->
+        <div class="meal-section">
+            <h2><span class="meal-icon">☀️</span> Lunch Ideas</h2>
+            
+            <div class="comment-form">
+                <textarea 
+                    id="lunch-input" 
+                    placeholder="Share your lunch idea... (e.g., 'Rajma chawal with cucumber raita - comfort food that never fails!')"></textarea>
+                <button class="submit-btn" onclick="submitIdea('lunch')">Share Idea</button>
+            </div>
+            
+            <div class="ideas-list" id="lunch-ideas">
+                <div class="no-ideas">Be the first to share a lunch idea! 🌟</div>
+            </div>
+        </div>
+
+        <!-- Dinner Section -->
+        <div class="meal-section">
+            <h2><span class="meal-icon">🌙</span> Dinner Ideas</h2>
+            
+            <div class="comment-form">
+                <textarea 
+                    id="dinner-input" 
+                    placeholder="Share your dinner idea... (e.g., 'Aloo paratha with dahi - simple, satisfying, and everyone's happy!')"></textarea>
+                <button class="submit-btn" onclick="submitIdea('dinner')">Share Idea</button>
+            </div>
+            
+            <div class="ideas-list" id="dinner-ideas">
+                <div class="no-ideas">Be the first to share a dinner idea! 🌟</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Curry2Cakes. Made with ❤️ in our home kitchen.</p>
+        </div>
+    </footer>
+
+    <script src="home-food-ideas.js"></script>
+</body>
+</html>
