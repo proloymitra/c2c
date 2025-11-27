@@ -1,70 +1,58 @@
-// Home Food Ideas - Anonymous Community Sharing System
-// Uses localStorage for client-side storage (no backend required)
+// Home Food Ideas - Supabase Integration
+// Anonymous community sharing with real-time sync across all users
 
-// Initialize ideas from localStorage
-let ideas = {
-    breakfast: [],
-    lunch: [],
-    dinner: []
-};
+// Supabase Configuration
+const SUPABASE_URL = 'https://wievonidztojjwatikoj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZXZvbmlkenRvamp3YXRpa29qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyMzI5ODIsImV4cCI6MjA3OTgwODk4Mn0.yUzU34UqMDqq3eUPEzsMHloPz2zN52RTGE0Ag7npm5E';
 
-// Load ideas from localStorage on page load
-function loadIdeas() {
-    const stored = localStorage.getItem('homeFoodIdeas');
-    if (stored) {
-        ideas = JSON.parse(stored);
-    } else {
-        // Add some sample ideas to get started
-        ideas = {
-            breakfast: [
-                {
-                    text: "Masala dosa with coconut chutney - crispy, filling, and the whole family loves it!",
-                    date: new Date().toISOString(),
-                    author: "Anonymous Cook"
-                },
-                {
-                    text: "Simple paratha with curd and pickle - when you're running late but need something substantial",
-                    date: new Date(Date.now() - 86400000).toISOString(),
-                    author: "Anonymous Cook"
-                }
-            ],
-            lunch: [
-                {
-                    text: "Dal tadka with jeera rice - comfort food that never disappoints",
-                    date: new Date().toISOString(),
-                    author: "Anonymous Cook"
-                },
-                {
-                    text: "Chole with rice and onion salad - protein-packed and delicious!",
-                    date: new Date(Date.now() - 172800000).toISOString(),
-                    author: "Anonymous Cook"
-                }
-            ],
-            dinner: [
-                {
-                    text: "Palak paneer with roti - healthy, tasty, and kids actually eat their greens!",
-                    date: new Date().toISOString(),
-                    author: "Anonymous Cook"
-                },
-                {
-                    text: "Egg curry with rice - quick to make, budget-friendly, and everyone asks for seconds",
-                    date: new Date(Date.now() - 259200000).toISOString(),
-                    author: "Anonymous Cook"
-                }
-            ]
+// Initialize Supabase client
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Load ideas from Supabase
+async function loadIdeas() {
+    try {
+        const { data, error } = await supabase
+            .from('home_food_ideas')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) {
+            console.error('Error loading ideas:', error);
+            showErrorMessage('Failed to load ideas. Please refresh the page.');
+            return;
+        }
+        
+        // Group ideas by meal type
+        const groupedIdeas = {
+            breakfast: [],
+            lunch: [],
+            dinner: []
         };
-        saveIdeas();
+        
+        data.forEach(idea => {
+            if (groupedIdeas[idea.meal_type]) {
+                groupedIdeas[idea.meal_type].push({
+                    id: idea.id,
+                    text: idea.idea_text,
+                    date: idea.created_at,
+                    author: idea.author
+                });
+            }
+        });
+        
+        // Render all sections
+        renderIdeas('breakfast', groupedIdeas.breakfast);
+        renderIdeas('lunch', groupedIdeas.lunch);
+        renderIdeas('dinner', groupedIdeas.dinner);
+        
+    } catch (err) {
+        console.error('Error:', err);
+        showErrorMessage('Failed to connect to database. Please check your internet connection.');
     }
-    renderAllIdeas();
 }
 
-// Save ideas to localStorage
-function saveIdeas() {
-    localStorage.setItem('homeFoodIdeas', JSON.stringify(ideas));
-}
-
-// Submit a new idea
-function submitIdea(mealType) {
+// Submit a new idea to Supabase
+async function submitIdea(mealType) {
     const input = document.getElementById(`${mealType}-input`);
     const text = input.value.trim();
     
@@ -78,62 +66,90 @@ function submitIdea(mealType) {
         return;
     }
     
-    // Create new idea object
-    const newIdea = {
-        text: text,
-        date: new Date().toISOString(),
-        author: "Anonymous Cook"
-    };
+    // Disable button to prevent double submission
+    const button = event.target;
+    button.disabled = true;
+    button.textContent = 'Sharing...';
     
-    // Add to beginning of array (newest first)
-    ideas[mealType].unshift(newIdea);
-    
-    // Save to localStorage
-    saveIdeas();
-    
-    // Clear input
-    input.value = '';
-    
-    // Re-render the specific meal section
-    renderIdeas(mealType);
-    
-    // Show success message
-    showSuccessMessage(mealType);
+    try {
+        const { data, error } = await supabase
+            .from('home_food_ideas')
+            .insert([
+                {
+                    meal_type: mealType,
+                    idea_text: text,
+                    author: 'Anonymous Cook'
+                }
+            ])
+            .select();
+        
+        if (error) {
+            console.error('Error submitting idea:', error);
+            alert('Failed to share your idea. Please try again.');
+            button.disabled = false;
+            button.textContent = 'Share Idea';
+            return;
+        }
+        
+        // Clear input
+        input.value = '';
+        
+        // Show success message
+        showSuccessMessage(mealType);
+        
+        // Reload ideas to show the new one
+        await loadIdeas();
+        
+        // Track event
+        trackEvent('submit_idea', 'Community', mealType);
+        
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to share your idea. Please check your internet connection.');
+    } finally {
+        button.disabled = false;
+        button.textContent = 'Share Idea';
+    }
 }
 
 // Show success message
 function showSuccessMessage(mealType) {
     const section = document.getElementById(`${mealType}-ideas`);
     const message = document.createElement('div');
-    message.style.cssText = 'background: #4CAF50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: 600;';
-    message.textContent = '✓ Your idea has been shared! Thank you for contributing! 🎉';
+    message.style.cssText = 'background: #4CAF50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: 600; animation: slideIn 0.3s ease;';
+    message.textContent = '✓ Your idea has been shared with the community! Thank you! 🎉';
     
     section.insertBefore(message, section.firstChild);
     
     // Remove message after 3 seconds
     setTimeout(() => {
-        message.remove();
+        message.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => message.remove(), 300);
     }, 3000);
 }
 
-// Render ideas for a specific meal type
-function renderIdeas(mealType) {
-    const container = document.getElementById(`${mealType}-ideas`);
-    const mealIdeas = ideas[mealType];
+// Show error message
+function showErrorMessage(errorText) {
+    const container = document.querySelector('.ideas-container');
+    const message = document.createElement('div');
+    message.style.cssText = 'background: #f44336; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 600;';
+    message.textContent = '⚠️ ' + errorText;
     
-    if (mealIdeas.length === 0) {
+    container.insertBefore(message, container.firstChild);
+    
+    setTimeout(() => message.remove(), 5000);
+}
+
+// Render ideas for a specific meal type
+function renderIdeas(mealType, ideas) {
+    const container = document.getElementById(`${mealType}-ideas`);
+    
+    if (!ideas || ideas.length === 0) {
         container.innerHTML = `<div class="no-ideas">Be the first to share a ${mealType} idea! 🌟</div>`;
         return;
     }
     
-    container.innerHTML = mealIdeas.map(idea => createIdeaCard(idea)).join('');
-}
-
-// Render all ideas
-function renderAllIdeas() {
-    renderIdeas('breakfast');
-    renderIdeas('lunch');
-    renderIdeas('dinner');
+    container.innerHTML = ideas.map(idea => createIdeaCard(idea)).join('');
 }
 
 // Create HTML for an idea card
@@ -159,7 +175,14 @@ function formatDate(date) {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 0) {
-        return 'Today';
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        if (diffHours === 0) {
+            const diffMinutes = Math.floor(diffTime / (1000 * 60));
+            if (diffMinutes < 5) return 'Just now';
+            return `${diffMinutes} minutes ago`;
+        }
+        if (diffHours === 1) return '1 hour ago';
+        return `${diffHours} hours ago`;
     } else if (diffDays === 1) {
         return 'Yesterday';
     } else if (diffDays < 7) {
@@ -179,9 +202,33 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// Allow Enter key to submit (with Shift+Enter for new line)
-document.addEventListener('DOMContentLoaded', function() {
-    loadIdeas();
+// Set up real-time subscriptions
+function setupRealtime() {
+    // Subscribe to new ideas
+    const subscription = supabase
+        .channel('home_food_ideas_changes')
+        .on('postgres_changes', 
+            { 
+                event: 'INSERT', 
+                schema: 'public', 
+                table: 'home_food_ideas' 
+            }, 
+            (payload) => {
+                console.log('New idea received:', payload);
+                // Reload all ideas to show the new one
+                loadIdeas();
+            }
+        )
+        .subscribe();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load initial ideas
+    await loadIdeas();
+    
+    // Set up real-time updates
+    setupRealtime();
     
     // Add keyboard shortcuts
     ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
@@ -193,6 +240,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Track page view
+    trackEvent('page_view', 'Community', 'home_food_ideas');
 });
 
 // Analytics tracking
@@ -204,10 +254,3 @@ function trackEvent(action, category, label) {
         });
     }
 }
-
-// Track idea submissions
-const originalSubmitIdea = submitIdea;
-submitIdea = function(mealType) {
-    trackEvent('submit_idea', 'Community', mealType);
-    return originalSubmitIdea(mealType);
-};
