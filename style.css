@@ -1302,3 +1302,16 @@ input.error, textarea.error {
 .menu-item:active {
     transform: translateY(-2px);
 }
+
+/* Bengali Special Badge */
+.menu-item-meta.bengali {
+    color: #ea580c;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.menu-item-meta.bengali span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}

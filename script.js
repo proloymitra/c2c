@@ -22,6 +22,17 @@ const menuItems = {
             detailedDescription: "Premium mutton pieces marinated and cooked with traditional Indian pickle spices including mustard seeds, fennel, nigella seeds, and fenugreek. The tangy, spicy gravy is a perfect balance of heat and flavor that will transport you to the streets of Old Delhi.",
             pairings: ["Tandoori Roti", "Plain Paratha", "Pulao", "Roomali Roti"],
             funFact: "The 'achari' spice blend mimics the flavors of Indian pickles (achar). This cooking technique dates back to Mughal kitchens where royal chefs would preserve the tangy flavors of pickles in their curries!"
+        },
+        {
+            name: "Chicken Kasha",
+            description: "Full Plate (4pcs): ₹375 | Half Plate (2pcs): ₹200",
+            price: "₹200+",
+            badge: "Bengali Special",
+            bengali: true,
+            image: "chicken-kasha.jpg",
+            detailedDescription: "An authentic Bengali home-style chicken curry featuring tender chicken pieces cooked in a rich, aromatic gravy with whole spices, onions, and tomatoes. This traditional kasha (curry) is slow-cooked to perfection, allowing the spices to penetrate deep into the meat, creating layers of flavor that define Bengali cuisine.",
+            pairings: ["Steamed Rice", "Luchi (Bengali Puri)", "Plain Paratha", "Begun Bhaja (Fried Eggplant)"],
+            funFact: "In Bengali households, 'kasha' refers to a dry-style curry where the gravy coats the meat rather than being soupy. The technique of bhuna (slow-cooking spices) is key to achieving the deep, complex flavors. This dish is a Sunday staple in Bengali homes!"
         }
     ],
     cakes: [
@@ -68,6 +79,17 @@ const menuItems = {
             detailedDescription: "Classic chocolate chip cookies with a perfect balance of crispy edges and chewy centers. Loaded with premium dark chocolate chips and a hint of sea salt. Baked fresh to order - the aroma alone is worth it!",
             pairings: ["Cold Milk", "Hot Chocolate", "Vanilla Ice Cream", "Coffee"],
             funFact: "The chocolate chip cookie was invented by accident in 1938 when Ruth Wakefield ran out of baker's chocolate and used chopped chocolate bars instead! Our cookies use Belgian chocolate chips for extra richness."
+        },
+        {
+            name: "Caramel Pudding Slice",
+            description: "Silky smooth caramel custard pudding",
+            price: "₹100",
+            badge: "Per Slice",
+            popular: true,
+            image: "caramel-pudding.jpg",
+            detailedDescription: "A classic caramel pudding (flan) with a silky-smooth custard texture topped with golden caramel sauce. Made with farm-fresh eggs, pure vanilla, and whole milk, then slow-baked to achieve the perfect wobble. The caramel is made from scratch - no shortcuts here!",
+            pairings: ["Black Coffee", "Vanilla Ice Cream", "Fresh Cream", "Mint Tea"],
+            funFact: "Caramel pudding (also called flan or crème caramel) has been enjoyed since Roman times! The secret to our pudding's smooth texture is baking it in a water bath at low temperature. Each slice takes 3 hours to set perfectly in the fridge!"
         }
     ]
 };
@@ -122,6 +144,11 @@ function renderMenuItems(category) {
             ${item.seasonal ? `
                 <div class="menu-item-meta seasonal">
                     <span>🌸 Seasonal</span>
+                </div>
+            ` : ''}
+            ${item.bengali ? `
+                <div class="menu-item-meta bengali">
+                    <span>🍛 Bengali Special</span>
                 </div>
             ` : ''}
             ${item.vegetarian ? `
