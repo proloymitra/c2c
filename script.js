@@ -437,7 +437,7 @@ function showMenuItemPopup(item) {
                            onclick="trackEvent('click_order', 'Menu', '${item.name}')">
                             Order on WhatsApp
                         </a>
-                        <button class="btn btn-secondary" onclick="this.closest('.menu-modal').remove()">
+                        <button class="btn btn-secondary">
                             Close
                         </button>
                     </div>
@@ -448,24 +448,25 @@ function showMenuItemPopup(item) {
     
     document.body.appendChild(modal);
     
-    // Add event listeners
-    modal.querySelector('.menu-modal-overlay').addEventListener('click', () => {
+    // Function to close modal and restore scroll
+    const closeModal = () => {
         modal.remove();
+        document.body.style.overflow = '';
         trackEvent('close_popup', 'Menu', item.name);
-    });
+    };
     
-    modal.querySelector('.menu-modal-close').addEventListener('click', () => {
-        modal.remove();
-        trackEvent('close_popup', 'Menu', item.name);
+    // Add event listeners
+    modal.querySelector('.menu-modal-overlay').addEventListener('click', closeModal);
+    modal.querySelector('.menu-modal-close').addEventListener('click', closeModal);
+    
+    // Also update the close button in the modal content
+    const closeButtons = modal.querySelectorAll('.btn-secondary');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', closeModal);
     });
     
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            document.body.style.overflow = '';
-        }
-    });
     
     // Animate in
     setTimeout(() => modal.classList.add('active'), 10);
