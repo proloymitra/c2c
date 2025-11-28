@@ -1145,21 +1145,21 @@ input.error, textarea.error {
 }
 
 .menu-modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     max-height: 90vh;
     overflow-y: auto;
 }
 
 .menu-modal-image {
-    position: sticky;
-    top: 0;
+    position: relative;
+    width: 100%;
     height: fit-content;
 }
 
 .menu-modal-image img {
     width: 100%;
-    height: 500px;
+    height: 400px;
     object-fit: cover;
     display: block;
 }
